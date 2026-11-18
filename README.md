@@ -56,7 +56,59 @@ Compare the original, opened, and closed images.
 
 ## Program
 
+```
+
+import cv2
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Create binary image
+img = np.zeros((300, 500), dtype=np.uint8)
+
+# Draw white rectangle
+cv2.rectangle(img, (100, 80), (350, 220), 255, -1)
+
+# Add white noise
+cv2.circle(img, (50, 50), 8, 255, -1)
+cv2.circle(img, (400, 250), 8, 255, -1)
+
+# Add black holes
+cv2.circle(img, (150, 130), 10, 0, -1)
+cv2.circle(img, (250, 170), 10, 0, -1)
+
+# Create kernel
+kernel = np.ones((15, 15), np.uint8)
+
+# Opening
+opening = cv2.morphologyEx(img, cv2.MORPH_OPEN, kernel)
+
+# Closing
+closing = cv2.morphologyEx(img, cv2.MORPH_CLOSE, kernel)
+
+# Display results
+plt.figure(figsize=(12, 5))
+
+plt.subplot(1, 3, 1)
+plt.imshow(img, cmap='gray')
+plt.title("Original Image")
+plt.axis('off')
+
+plt.subplot(1, 3, 2)
+plt.imshow(opening, cmap='gray')
+plt.title("Opening")
+plt.axis('off')
+
+plt.subplot(1, 3, 3)
+plt.imshow(closing, cmap='gray')
+plt.title("Closing")
+plt.axis('off')
+
+plt.show()
+
+```
+
 ## Output
+<img width="1227" height="261" alt="image" src="https://github.com/user-attachments/assets/3cdc90a1-6215-4812-b655-07e4da9926cf" />
 
 ### Original Image
 
